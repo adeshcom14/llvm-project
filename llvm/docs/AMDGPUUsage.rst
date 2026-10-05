@@ -2478,6 +2478,24 @@ arguments.
 
   %val = load i32, ptr %in, align 4, !amdgpu.last.use !{}
 
+.. _amdgpu_temporality:
+
+'``amdgpu.temporality``' Cache Hint
+-----------------------------------
+
+A target-specific key carried inside the generic ``!mem.cache_hint`` metadata
+node. It describes the expected reuse pattern of the accessed memory as a set
+of levels that may vary by memory scope, and generalizes ``!nontemporal``.
+
+.. code-block:: llvm
+
+  %val = load i32, ptr addrspace(1) %in, align 4, !mem.cache_hint !0
+
+  !0 = !{ i32 0, !1 }
+  !1 = !{ !"amdgpu.temporality", !"workgroup:low:agent:high" }
+
+See :doc:`AMDGPUTemporality` for the full specification.
+
 '``amdgpu.no.remote.memory``' Metadata
 ---------------------------------------------
 
